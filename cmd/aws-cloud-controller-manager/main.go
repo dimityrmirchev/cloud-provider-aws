@@ -110,7 +110,9 @@ func main() {
 				informerUserCloud.SetInformers(c.SharedInformers)
 			}
 
-			if err := app.Run(c.Complete(), app.DefaultControllerInitializers(c.Complete(), cloud), wait.NeverStop); err != nil {
+			controllerInitializers := app.ConstructControllerInitializers(app.DefaultInitFuncConstructors, c.Complete(), cloud)
+
+			if err := app.Run(c.Complete(), cloud, controllerInitializers, wait.NeverStop); err != nil {
 				fmt.Fprintf(os.Stderr, "%v\n", err)
 				os.Exit(1)
 			}
