@@ -9,7 +9,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install \
   ./...
 
 ############# cloud-provider-aws #############
-FROM alpine:3.15.4 AS cloud-provider-aws
+FROM gcr.io/distroless/static-debian11:nonroot AS cloud-provider-aws
 
 COPY --from=builder /go/bin/aws-cloud-controller-manager /aws-cloud-controller-manager
 
